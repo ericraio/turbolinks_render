@@ -39,8 +39,8 @@ module TurbolinksRender
       end
 
       def js_code_to_render_html(html)
-        escaped_html = ActionController::Base.helpers.j(html).force_encoding("utf-8")
-        <<-JS
+        escaped_html = ActionController::Base.helpers.j(html)
+        js_code = <<-JS
         (function(){
           function renderWithTurbolinks(htmlContent){
             var currentSnapshot = Turbolinks.Snapshot.fromHTMLElement(document.documentElement);
@@ -61,6 +61,7 @@ module TurbolinksRender
           window.scroll(0, 0);
         })();
         JS
+        js_code.force_encoding("utf-8")
       end
     end
 

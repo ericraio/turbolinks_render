@@ -40,8 +40,9 @@ module TurbolinksRender
 
       def js_code_to_render_html(html)
         encoded_html = html.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '').force_encoding(Encoding::UTF_8)
+        Rails.logger.info("[ENCODED HTML] -------------> #{encoded_html}")
         escaped_html = ActionController::Base.helpers.j(encoded_html)
-        Rails.logger.info("-------------> ", escaped_html)
+        Rails.logger.info("[ESCAPED HTML] -------------> #{escaped_html}")
         <<-JS
         (function(){
           function renderWithTurbolinks(htmlContent){
@@ -63,6 +64,9 @@ module TurbolinksRender
           window.scroll(0, 0);
         })();
         JS
+      end
+
+      def encode_html(html)
       end
     end
 
@@ -87,9 +91,6 @@ module TurbolinksRender
     end
 
     private
-
-    def encode_html(html)
-    end
 
     def render_with_turbolinks?(request, response)
       request.candidate_for_turbolinks? && response.candidate_for_turbolinks? &&

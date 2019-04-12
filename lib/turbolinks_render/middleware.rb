@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module TurbolinksRender
   class Middleware
     Request = Struct.new(:request) do
@@ -41,7 +39,7 @@ module TurbolinksRender
       end
 
       def js_code_to_render_html(html)
-        escaped_html = ActionController::Base.helpers.j(html)
+        escaped_html = ActionController::Base.helpers.j(html).force_encoding("utf-8")
         <<-JS
         (function(){
           function renderWithTurbolinks(htmlContent){
@@ -49,7 +47,7 @@ module TurbolinksRender
             var newSpanshot = Turbolinks.Snapshot.fromHTMLString(htmlContent);
             var nullCallback = function(){};
             var nullDelegate = {viewInvalidated: nullCallback, viewWillRender: nullCallback, viewRendered: nullCallback};
-          
+
             var renderer = new Turbolinks.SnapshotRenderer(currentSnapshot, newSpanshot, false);
             if(!renderer.shouldRender()){
               renderer = new Turbolinks.ErrorRenderer(htmlContent);

@@ -87,7 +87,7 @@ module TurbolinksRender
     private
 
     def encode_html(html)
-      html.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '').force_encoding("UTF-8"))
+      html.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '').force_encoding("UTF-8")
     end
 
     def render_with_turbolinks?(request, response)

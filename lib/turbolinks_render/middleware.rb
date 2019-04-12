@@ -39,7 +39,7 @@ module TurbolinksRender
       end
 
       def js_code_to_render_html(html)
-        encoded_html = html.force_encoding('utf8')
+        encoded_html = html.force_encoding('UTF-8')
         Rails.logger.info("[ENCODED_HTML] #{encoded_html}")
         escaped_html = ActionController::Base.helpers.raw(encoded_html)
         Rails.logger.info("[ESCAPED_HTML] #{escaped_html}")

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module TurbolinksRender
   class Middleware
     Request = Struct.new(:request) do

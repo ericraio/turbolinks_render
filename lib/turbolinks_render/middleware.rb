@@ -40,7 +40,7 @@ module TurbolinksRender
 
       def js_code_to_render_html(html)
         escaped_html = ActionController::Base.helpers.j(html)
-        js_code = <<-JS
+        <<-JS
         (function(){
           function renderWithTurbolinks(htmlContent){
             var currentSnapshot = Turbolinks.Snapshot.fromHTMLElement(document.documentElement);
@@ -61,7 +61,6 @@ module TurbolinksRender
           window.scroll(0, 0);
         })();
         JS
-        js_code.force_encoding("utf-8")
       end
     end
 
@@ -82,7 +81,7 @@ module TurbolinksRender
       rack_headers["Content-Type"] = 'text/javascript'
       rack_headers["Content-Length"] = response.turbolinks_body.bytesize.to_s
 
-      [rack_status, rack_headers, [response.turbolinks_body]]
+      [rack_status, rack_headers, [response.turbolinks_body.force_encoding('utf-8')]]
     end
 
     private

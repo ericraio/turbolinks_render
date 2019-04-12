@@ -39,7 +39,7 @@ module TurbolinksRender
       end
 
       def js_code_to_render_html(html)
-        escaped_html = ActionController::Base.helpers.j(html)
+        escaped_html = ActionController::Base.helpers.j(html.force_encoding("UTF-8"))
         <<-JS
         (function(){
           function renderWithTurbolinks(htmlContent){
@@ -81,7 +81,7 @@ module TurbolinksRender
       rack_headers["Content-Type"] = 'text/javascript'
       rack_headers["Content-Length"] = response.turbolinks_body.bytesize.to_s
 
-      [rack_status, rack_headers, [response.turbolinks_body.force_encoding('utf-8')]]
+      [rack_status, rack_headers, [response.turbolinks_body]]
     end
 
     private

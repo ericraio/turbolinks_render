@@ -39,7 +39,7 @@ module TurbolinksRender
       end
 
       def js_code_to_render_html(html)
-        encoded_html = html.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '').force_encoding("UTF-8")
+        encoded_html = html.force_encoding(Encoding::UTF_8)
         escaped_html = ActionController::Base.helpers.j(encoded_html)
         <<-JS
         (function(){
